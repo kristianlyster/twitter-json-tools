@@ -40,9 +40,13 @@ print()
 
 # OMFORM TWEETS FOR Å HENTE UT NYTTIGE DELER AV USER OG ENTITIES
 
+apidateformat = '%a %b %d %H:%M:%S %z %Y'
+
 for tweet in tweets:
     tweet['user'] = tweet['user']['screen_name']
     tweet['id'] = tweet['id_str']
+
+    tweet['created_at'] = datetime.strptime(tweet['created_at'], apidateformat)
 
     hashtags_dict = tweet['entities']['hashtags']
     hashtags = ''
@@ -56,51 +60,22 @@ for tweet in tweets:
         mentions += ' ' + mention['screen_name']
     tweet['mentions'] = mentions
 
-fields_to_keep = ['created_at', 'full_text', 'mentions',
-                  'hashtags', 'id', 'user', 'favorite_count', 'retweet_count']
 
 # FJERN UNYTTIGE DELER AV DATA
+
+fields_to_keep = ['created_at', 'full_text', 'mentions',
+                  'hashtags', 'id', 'user', 'favorite_count', 'retweet_count']
 
 for tweet in tweets:
     tweet = remove_excess_data(tweet, fields_to_keep)
 
-# SØK ETTER ORD, HASHTAG ELLER
 
-# word = 'democracy'
+# HVEM NEVNER #BREXIT MEST? (Eksempel på søk og analyse av resultat)
 
-# wordmatches, wordmatchindexes = search_for_word(tweets, word)
+EPP_tweets = get_sublist_containing_mention(tweets, 'EPP')
 
-# print("Antall tweets med ordet", word, "i:", wordmatches)
-# print("Eksempel på tweet med ordet", word + ":")
-# print(generate_tweet_link(tweets[wordmatchindexes[0]]))
-# print(tweets[wordmatchindexes[0]]['full_text'])
-# print()
+print("Antall tweets som nevner @EPP:", len(EPP_tweets))
 
-# hashtag = 'Brexit'
-
-# hashtagmatches, hashtagmatchindexes = search_for_hashtag(tweets, hashtag)
-
-# print("Antall tweets med hashtaggen", '#' + hashtag, "i:", hashtagmatches)
-# print("Eksempel på tweet med hashtaggen", '#' + hashtag + ':')
-# print(generate_tweet_link(tweets[hashtagmatchindexes[0]]))
-# print(tweets[hashtagmatchindexes[0]]['full_text'])
-# print()
-
-# username = 'EPP'
-
-# mentionmatches, mentionmatchindexes = search_for_mention(tweets, username)
-
-# print("Antall tweets som nevner", '@' + username + ":", mentionmatches)
-# print("Eksempel på tweet som nevner", '@' + username + ":")
-# print(generate_tweet_link(tweets[mentionmatchindexes[0]]))
-# print(tweets[mentionmatchindexes[0]]['full_text'])
-
-# HVEM NEVNER #BREXIT MEST?
-
-EPP_tweets = get_sublist_containing_word(tweets, 'UK')
-
-print("Antall tweets som nevner UK:", len(EPP_tweets))
-
-tweeters = [tweet['user'] for tweet in tweets]
+tweeters = [tweet['user'] for tweet in EPP_tweets]
 
 print(Counter(tweeters).most_common())

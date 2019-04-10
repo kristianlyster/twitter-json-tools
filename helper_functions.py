@@ -34,7 +34,7 @@ def mark_for_deletion_if_exists(tweets, field):
 
 
 def remove_excess_data(tweet, fields_to_keep):
-    # Se på datafelter i entweet, og behold kun de ønskede feltene
+    # Se på datafelter i en tweet, og behold kun de ønskede feltene
     fields_to_remove = list(tweet.keys())
     for field in fields_to_keep:
         if field in fields_to_remove:
