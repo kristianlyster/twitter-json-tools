@@ -53,12 +53,18 @@ for tweet in tweets:
     tweet = remove_excess_data(tweet, fields_to_keep)
 
 
-# HVEM NEVNER #BREXIT MEST? (Eksempel på søk og analyse av resultat)
+# EKSEMPEL-SØK MED ENKEL ANALYSE AV RESULTAT
 
-EPP_tweets = get_sublist_containing_mention(tweets, 'EPP')
+search_term = ''
 
-print("Antall tweets som nevner @EPP:", len(EPP_tweets))
+result_tweets = get_sublist_containing_word(tweets, search_term)
 
-tweeters = [tweet['user'] for tweet in EPP_tweets]
+print("Antall tweets som nevner", search_term + ':', len(result_tweets))
 
-print(Counter(tweeters).most_common())
+tweeters = [tweet['user'] for tweet in result_tweets]
+
+ordered_tweeters = Counter(tweeters).most_common()
+
+print("\nDisse tweeter mest om", search_term + ':')
+for tweeter in ordered_tweeters:
+    print(tweeter[0] + ':', tweeter[1], 'tweets')
