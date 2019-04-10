@@ -1,5 +1,5 @@
 import json
-
+from datetime import datetime
 
 def name_to_filename(name):
     # Tar inn kandidatens twitter-navn og returnerer filnavnet til en .json-fil
@@ -48,3 +48,27 @@ def remove_excess_data(tweet, fields_to_keep):
 
 def generate_tweet_link(tweet):
     return 'https://twitter.com/' + tweet['user'] + '/status/' + tweet['id']
+
+
+apidateformat = '%a %b %d %H:%M:%S %z %Y'
+
+
+def rearrange_tweet_data(tweet):
+    tweet['user'] = tweet['user']['screen_name']
+    tweet['id'] = tweet['id_str']
+
+    tweet['created_at'] = datetime.strptime(tweet['created_at'], apidateformat)
+
+    hashtags_dict = tweet['entities']['hashtags']
+    hashtags = ''
+    for hashtag in hashtags_dict:
+        hashtags += ' ' + hashtag['text']
+    tweet['hashtags'] = hashtags
+
+    mentions_dict = tweet['entities']['user_mentions']
+    mentions = ''
+    for mention in mentions_dict:
+        mentions += ' ' + mention['screen_name']
+    tweet['mentions'] = mentions
+
+    return tweet

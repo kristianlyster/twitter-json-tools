@@ -40,25 +40,8 @@ print()
 
 # OMFORM TWEETS FOR Å HENTE UT NYTTIGE DELER AV USER OG ENTITIES
 
-apidateformat = '%a %b %d %H:%M:%S %z %Y'
-
 for tweet in tweets:
-    tweet['user'] = tweet['user']['screen_name']
-    tweet['id'] = tweet['id_str']
-
-    tweet['created_at'] = datetime.strptime(tweet['created_at'], apidateformat)
-
-    hashtags_dict = tweet['entities']['hashtags']
-    hashtags = ''
-    for hashtag in hashtags_dict:
-        hashtags += ' ' + hashtag['text']
-    tweet['hashtags'] = hashtags
-
-    mentions_dict = tweet['entities']['user_mentions']
-    mentions = ''
-    for mention in mentions_dict:
-        mentions += ' ' + mention['screen_name']
-    tweet['mentions'] = mentions
+    tweet = rearrange_tweet_data(tweet)
 
 
 # FJERN UNYTTIGE DELER AV DATA
