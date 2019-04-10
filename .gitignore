@@ -98,8 +98,5 @@ ENV/
 # mypy
 .mypy_cache/
 
-# .json files
-json/*
-
 # Sublime stuff
 *.sublime-workspace
