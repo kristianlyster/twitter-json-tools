@@ -55,7 +55,7 @@ for tweet in tweets:
 
 # EKSEMPEL-SØK MED ENKEL ANALYSE AV RESULTAT
 
-search_term = ''
+search_term = 'Ukraine'
 
 result_tweets = get_sublist_containing_word(tweets, search_term)
 
@@ -68,3 +68,15 @@ ordered_tweeters = Counter(tweeters).most_common()
 print("\nDisse tweeter mest om", search_term + ':')
 for tweeter in ordered_tweeters:
     print(tweeter[0] + ':', tweeter[1], 'tweets')
+
+# Hva er en gitt brukers oftest twitrede hashtagg
+user = 'ManfredWeber'
+user_hashtags = []
+
+for tweet in tweets:
+    if tweet['user'] == user:
+        user_hashtags.extend([tag.lower() for tag in tweet['hashtags']])
+
+counted_hashtags = Counter(user_hashtags).most_common(10)
+
+print_counter(counted_hashtags, 'Hashtag')

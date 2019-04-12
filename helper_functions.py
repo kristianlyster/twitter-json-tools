@@ -60,15 +60,22 @@ def rearrange_tweet_data(tweet):
     tweet['created_at'] = datetime.strptime(tweet['created_at'], apidateformat)
 
     hashtags_dict = tweet['entities']['hashtags']
-    hashtags = ''
+    hashtags = []
     for hashtag in hashtags_dict:
-        hashtags += ' ' + hashtag['text']
+        hashtags.append(hashtag['text'])
     tweet['hashtags'] = hashtags
 
     mentions_dict = tweet['entities']['user_mentions']
-    mentions = ''
+    mentions = []
     for mention in mentions_dict:
-        mentions += ' ' + mention['screen_name']
+        mentions.append(mention['screen_name'])
     tweet['mentions'] = mentions
 
     return tweet
+
+
+def print_counter(counter, name='Element'):
+    print('{0:20}Antall'.format(name))
+    print('--------------------------')
+    for elem in counter:
+        print('{0:20}{1}'.format(elem[0] + ':', elem[1]))

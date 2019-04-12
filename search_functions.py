@@ -9,7 +9,7 @@ def search_for_keyword_in_field(tweets, keyword, field):
         if keyword.lower() in text.lower().split():
             matches.append(index)
 
-    return len(matches), matches
+    return matches
 
 
 def search_for_word(tweets, word):
@@ -27,6 +27,11 @@ def search_for_mention(tweets, username):
     return search_for_keyword_in_field(tweets, username, 'mentions')
 
 
+def search_for_tweets_from_user(tweets, username):
+    # Snarvei for å søke i en liste med tweets etter tweets fra en bruker
+    return search_for_keyword_in_field(tweets, username, 'user')
+
+
 def get_list_of_matches(tweets, indexes):
     # Tar inn liste med indekser fra et søk
     # Returnerer listen indeksene refererer til
@@ -39,17 +44,23 @@ def get_list_of_matches(tweets, indexes):
 
 def get_sublist_containing_word(tweets, word):
     # Snarvei for å hente en liste med tweets som inneholder et søkeord
-    _, indexes = search_for_word(tweets, word)
+    indexes = search_for_word(tweets, word)
     return get_list_of_matches(tweets, indexes)
 
 
 def get_sublist_containing_hashtag(tweets, hashtag):
     # Snarvei for å hente en liste med tweets som inneholder en hashtag
-    _, indexes = search_for_hashtag(tweets, hashtag)
+    indexes = search_for_hashtag(tweets, hashtag)
     return get_list_of_matches(tweets, indexes)
 
 
 def get_sublist_containing_mention(tweets, username):
     # Snarvei for å hente en liste med tweets som nevner et @handle
-    _, indexes = search_for_mention(tweets, username)
+    indexes = search_for_mention(tweets, username)
+    return get_list_of_matches(tweets, indexes)
+
+
+def get_sublist_containing_tweets_from_user(tweets, username):
+    # Snarvei for å hente tweets fra en spesifikk bruker
+    indexes = search_for_tweets_from_user(tweets, username)
     return get_list_of_matches(tweets, indexes)
