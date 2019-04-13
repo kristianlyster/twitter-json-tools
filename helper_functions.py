@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 
+
 def name_to_filename(name):
     # Tar inn kandidatens twitter-navn og returnerer filnavnet til en .json-fil
     return name + '-tweets.json'

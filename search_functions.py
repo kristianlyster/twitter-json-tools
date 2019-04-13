@@ -6,8 +6,12 @@ def search_for_keyword_in_field(tweets, keyword, field):
 
     for index, tweet in enumerate(tweets):
         text = tweet[field]
-        if keyword.lower() in text.lower().split():
-            matches.append(index)
+        if isinstance(text, str):
+            if keyword.lower() in text.lower().split():
+                matches.append(index)
+        elif isinstance(text, list):
+            if keyword.lower() in [word.lower() for word in text]:
+                matches.append(index)
 
     return matches
 
