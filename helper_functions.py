@@ -55,6 +55,7 @@ apidateformat = '%a %b %d %H:%M:%S %z %Y'
 
 
 def rearrange_tweet_data(tweet):
+    tweet['user_followers'] = tweet['user']['followers_count']
     tweet['user'] = tweet['user']['screen_name']
     tweet['id'] = tweet['id_str']
 

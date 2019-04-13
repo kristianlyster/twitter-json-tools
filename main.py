@@ -22,7 +22,7 @@ print()
 
 print("Antall tweets før filter:", len(tweets))
 
-unwanted_fields = ['retweeted_status', 'in_reply_to_status_id']
+unwanted_fields = ['retweeted_status']  # , 'in_reply_to_status_id']
 todelete = []
 
 print('Filtrerer bort tweets med:', unwanted_fields)
@@ -47,38 +47,39 @@ for tweet in tweets:
 # FJERN UNYTTIGE DELER AV DATA
 
 fields_to_keep = ['created_at', 'full_text', 'mentions',
-                  'hashtags', 'id', 'user', 'favorite_count', 'retweet_count']
+                  'hashtags', 'id', 'user', 'favorite_count', 'retweet_count',
+                  'user_followers']
 
 for tweet in tweets:
     tweet = remove_excess_data(tweet, fields_to_keep)
 
+# search_terms = ['spitzenkandidat', 'EP2019', 'reneweurope', 'itstime',
+#                 'strongertogether', 'bettereurope', 'deineuropa',
+#                 'letsacttogether', 'europeanspring', 'retunetheeu',
+#                 'diem25', 'ΜέΡΑ25']
 
-# EKSEMPEL-SØK MED ENKEL ANALYSE AV RESULTAT
-
-search_term = 'Brexit'
-
-result_tweets = get_sublist_containing_word(tweets, search_term)
-
-print("Antall tweets som nevner", search_term + ':', len(result_tweets))
-
-tweeters = [tweet['user'] for tweet in result_tweets]
-
-ordered_tweeters = Counter(tweeters).most_common()
-
-print()
-
-print("\nDisse tweeter mest om", search_term + ':')
-for tweeter in ordered_tweeters:
-    print(tweeter[0] + ':', tweeter[1], 'tweets')
-
-# Hva er en gitt brukers oftest twitrede hashtagg
-user = 'YanisVaroufakis'
-user_hashtags = []
+tweets_by_user = {}
 
 for tweet in tweets:
-    if tweet['user'].lower() == user.lower():
-        user_hashtags.extend([tag.lower() for tag in tweet['hashtags']])
+    user = tweet['user']
+    if user not in tweets_by_user.keys():
+        tweets_by_user[user] = []
+    tweets_by_user[user].append(tweet)
 
-counted_hashtags = Counter(user_hashtags).most_common(10)
-print()
-print_counter(counted_hashtags, 'Hashtag')
+followers = {}
+
+for user in tweets_by_user.keys():
+    followers[user] = tweets_by_user[user][0]['user_followers']
+
+interaction_rates = {}
+
+
+for user, usertweets in tweets_by_user.items():
+    user_followers = followers[user]
+    totalrate = 0
+    for tweet in usertweets:
+        totalrate += (tweet['retweet_count'] + tweet['favorite_count']) / user_followers
+    interaction_rates[user] = totalrate / len(usertweets)
+
+for name in sorted(interaction_rates, key=interaction_rates.get, reverse=True):
+    print('{0:17} {1:8.4f}\tmed {2} følgere'.format(name + ':', interaction_rates[name], followers[name]))
