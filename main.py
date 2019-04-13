@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 from collections import Counter
+from textblob import TextBlob
 # Importer hjelpefunksjoner fra egne filer
 from helper_functions import *
 from search_functions import *
@@ -22,7 +23,7 @@ print()
 
 print("Antall tweets før filter:", len(tweets))
 
-unwanted_fields = ['retweeted_status']  # , 'in_reply_to_status_id']
+unwanted_fields = []  # ['retweeted_status']  # , 'in_reply_to_status_id']
 todelete = []
 
 print('Filtrerer bort tweets med:', unwanted_fields)
@@ -53,33 +54,60 @@ fields_to_keep = ['created_at', 'full_text', 'mentions',
 for tweet in tweets:
     tweet = remove_excess_data(tweet, fields_to_keep)
 
-# search_terms = ['spitzenkandidat', 'EP2019', 'reneweurope', 'itstime',
-#                 'strongertogether', 'bettereurope', 'deineuropa',
-#                 'letsacttogether', 'europeanspring', 'retunetheeu',
-#                 'diem25', 'ΜέΡΑ25']
 
-tweets_by_user = {}
+# search_terms = 'climate'
+
+# wordresults = get_sublist_containing_word(tweets, search_terms)
+# tagresults = get_sublist_containing_hashtag(tweets, search_terms)
+
+# totalresults = wordresults
+
+# for result in tagresults:
+#     if result not in totalresults:
+#         totalresults.append(result)
+
+# print(len(totalresults))
+
+total_polarity = 0
+total_subjectivity = 0
 
 for tweet in tweets:
-    user = tweet['user']
-    if user not in tweets_by_user.keys():
-        tweets_by_user[user] = []
-    tweets_by_user[user].append(tweet)
+    blob = TextBlob(tweet['full_text'])
+    total_polarity += blob.sentiment.polarity
+    total_subjectivity += blob.sentiment.subjectivity
 
-followers = {}
+mean_polarity = total_polarity / len(tweets)
+mean_subjectivity = total_subjectivity / len(tweets)
 
-for user in tweets_by_user.keys():
-    followers[user] = tweets_by_user[user][0]['user_followers']
-
-interaction_rates = {}
+print("Snitt-polaritet:", mean_polarity)
+print("Snitt-subjektivitet:", mean_subjectivity)
 
 
-for user, usertweets in tweets_by_user.items():
-    user_followers = followers[user]
-    totalrate = 0
-    for tweet in usertweets:
-        totalrate += (tweet['retweet_count'] + tweet['favorite_count']) / user_followers
-    interaction_rates[user] = totalrate / len(usertweets)
 
-for name in sorted(interaction_rates, key=interaction_rates.get, reverse=True):
-    print('{0:17} {1:8.4f}\tmed {2} følgere'.format(name + ':', interaction_rates[name], followers[name]))
+# tweets_by_user = {}
+
+# for tweet in tweets:
+#     user = tweet['user']
+#     if user not in tweets_by_user.keys():
+#         tweets_by_user[user] = []
+#     tweets_by_user[user].append(tweet)
+
+
+
+# followers = {}
+
+# for user in tweets_by_user.keys():
+#     followers[user] = tweets_by_user[user][0]['user_followers']
+
+# interaction_rates = {}
+
+
+# for user, usertweets in tweets_by_user.items():
+#     user_followers = followers[user]
+#     totalrate = 0
+#     for tweet in usertweets:
+#         totalrate += (tweet['retweet_count'] + tweet['favorite_count']) / user_followers
+#     interaction_rates[user] = totalrate / len(usertweets)
+
+# for name in sorted(interaction_rates, key=interaction_rates.get, reverse=True):
+#     print('{0:17} {1:8.4f}\tmed {2} følgere'.format(name + ':', interaction_rates[name], followers[name]))
