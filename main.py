@@ -82,8 +82,6 @@ mean_subjectivity = total_subjectivity / len(tweets)
 print("Snitt-polaritet:", mean_polarity)
 print("Snitt-subjektivitet:", mean_subjectivity)
 
-
-
 # tweets_by_user = {}
 
 # for tweet in tweets:
@@ -91,8 +89,6 @@ print("Snitt-subjektivitet:", mean_subjectivity)
 #     if user not in tweets_by_user.keys():
 #         tweets_by_user[user] = []
 #     tweets_by_user[user].append(tweet)
-
-
 
 # followers = {}
 
