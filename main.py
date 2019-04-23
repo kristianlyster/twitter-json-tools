@@ -10,11 +10,16 @@ from search_functions import *
 candidates = ['BasEickhout', 'GuyVerhofstadt', 'ManfredWeber', 'SkaKeller',
               'TimmermansEU', 'Vestager', 'YanisVaroufakis', 'ZahradilJan']
 
+# searchwords = ['EP2019', 'StrongerTogether', 'ItsTime', 'RetuneTheEU', LetsActTogether, 'RenewEurope', 'EuropeanSpring']
+
 # LAST TWEETS FRA JSON-FIL
 tweets = []
 
 for candidate in candidates:
     tweets.extend(read_tweets_from_file(name_to_filename(candidate)))
+    
+#for searchword in searchwords:
+    #tweets.extend(read_tweets_from_file(name_to_filename(searchword)))
 
 print("Tweets ferdig lastet!")
 print()
