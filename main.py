@@ -61,10 +61,11 @@ for tweet in tweets:
 
 ####################################################
 
-tweets = sort_list_by_value(tweets, 'favorite_count')
+tweets = sort_list_by_value(tweets, 'favorite_count' #'retweet_count')
 
 for i in range(10):
     print('{}: https://twitter.com/{}/status/{} med {} likes'.format(i + 1, tweets[i]['user'], tweets[i]['id'], tweets[i]['favorite_count']))
+    #print('{}: https://twitter.com/{}/status/{} med {} retweets'.format(i + 1, tweets[i]['user'], tweets[i]['id'], tweets[i]['retweet_count']))
 
 # tweets_by_user = {}
 
