@@ -68,3 +68,7 @@ def get_sublist_containing_tweets_from_user(tweets, username):
     # Snarvei for å hente tweets fra en spesifikk bruker
     indexes = search_for_tweets_from_user(tweets, username)
     return get_list_of_matches(tweets, indexes)
+
+
+def sort_list_by_value(tweets, key):
+    return sorted(tweets, key=lambda x: x[key], reverse=True)

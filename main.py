@@ -59,33 +59,12 @@ fields_to_keep = ['created_at', 'full_text', 'mentions',
 for tweet in tweets:
     tweet = remove_excess_data(tweet, fields_to_keep)
 
+####################################################
 
-# search_terms = 'climate'
+tweets = sort_list_by_value(tweets, 'favorite_count')
 
-# wordresults = get_sublist_containing_word(tweets, search_terms)
-# tagresults = get_sublist_containing_hashtag(tweets, search_terms)
-
-# totalresults = wordresults
-
-# for result in tagresults:
-#     if result not in totalresults:
-#         totalresults.append(result)
-
-# print(len(totalresults))
-
-total_polarity = 0
-total_subjectivity = 0
-
-for tweet in tweets:
-    blob = TextBlob(tweet['full_text'])
-    total_polarity += blob.sentiment.polarity
-    total_subjectivity += blob.sentiment.subjectivity
-
-mean_polarity = total_polarity / len(tweets)
-mean_subjectivity = total_subjectivity / len(tweets)
-
-print("Snitt-polaritet:", mean_polarity)
-print("Snitt-subjektivitet:", mean_subjectivity)
+for i in range(10):
+    print('{}: https://twitter.com/{}/status/{} med {} likes'.format(i + 1, tweets[i]['user'], tweets[i]['id'], tweets[i]['favorite_count']))
 
 # tweets_by_user = {}
 
