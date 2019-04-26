@@ -2,17 +2,17 @@ import json
 from datetime import datetime
 from collections import Counter
 from textblob import TextBlob
-# Importer hjelpefunksjoner fra egne filer
+# Imports helper functions from our own created files
 from helper_functions import *
 from search_functions import *
 
-# UTVALG, FILER Å LASTE JSON FRA
+# SELECTIONS, FILES TO DOWNLOAD TWEETS FROM
 candidates = ['BasEickhout', 'GuyVerhofstadt', 'ManfredWeber', 'SkaKeller',
               'TimmermansEU', 'Vestager', 'YanisVaroufakis', 'ZahradilJan']
 
 # searchwords = ['EP2019', 'StrongerTogether', 'ItsTime', 'RetuneTheEU', LetsActTogether, 'RenewEurope', 'EuropeanSpring']
 
-# LAST TWEETS FRA JSON-FIL
+# DOWNLOADS TWEETS FROM JSON-FILES
 tweets = []
 
 for candidate in candidates:
@@ -24,7 +24,7 @@ for candidate in candidates:
 print("Tweets ferdig lastet!")
 print()
 
-# FILTRER RELEVANT DATA
+# FILTERS IRRELEVANT DATA
 
 print("Antall tweets før filter:", len(tweets))
 
@@ -44,13 +44,13 @@ for index in todelete:
 print("Antall tweets etter filter:", len(tweets))
 print()
 
-# OMFORM TWEETS FOR Å HENTE UT NYTTIGE DELER AV USER OG ENTITIES
+# REARRANGE TWEETS IN ORDER TO GATHER USEFUL PARTS OF ['user'] AND ['entities'] 
 
 for tweet in tweets:
     tweet = rearrange_tweet_data(tweet)
 
 
-# FJERN UNYTTIGE DELER AV DATA
+# REMOVE EXCESS DATA
 
 fields_to_keep = ['created_at', 'full_text', 'mentions',
                   'hashtags', 'id', 'user', 'favorite_count', 'retweet_count',
@@ -60,8 +60,6 @@ for tweet in tweets:
     tweet = remove_excess_data(tweet, fields_to_keep)
 
 ####################################################
-
-####### Find tweets with no retweets ########
 
 ####Find Tweets with no retweets ###
 #
@@ -93,6 +91,8 @@ for i in range(10):
     print('{}: https://twitter.com/{}/status/{} med {} likes'.format(i + 1, tweets[i]['user'], tweets[i]['id'], tweets[i]['favorite_count']))
     #print('{}: https://twitter.com/{}/status/{} med {} retweets'.format(i + 1, tweets[i]['user'], tweets[i]['id'], tweets[i]['retweet_count']))
 
+#### FIND WIGHTED INTERACTION RATE PER FOLLOWER ####                            
+                            
 # tweets_by_user = {}
 
 # for tweet in tweets:
@@ -105,7 +105,8 @@ for i in range(10):
 
 # for user in tweets_by_user.keys():
 #     followers[user] = tweets_by_user[user][0]['user_followers']
-
+                            
+                            
 # interaction_rates = {}
 
 
