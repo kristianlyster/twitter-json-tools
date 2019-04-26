@@ -65,16 +65,16 @@ for tweet in tweets:
 
 ####Find Tweets with no retweets ###
 #
-for i in tweets:
-    try:
-        if i['retweeted_status']:
-            tweets.remove(i)
-    except KeyError:
-        continue
+#for i in tweets:
+    #try:
+        #if i['retweeted_status']:
+            #tweets.remove(i)
+    #except KeyError:
+        #continue
 
-print("Antall tweets etter filtrering:", len(tweets))
-print()
-print("Tweeter uten retweets:")
+#print("Antall tweets etter filtrering:", len(tweets))
+#print()
+#print("Tweeter uten retweets:")
 
 count = 0
 
