@@ -61,6 +61,32 @@ for tweet in tweets:
 
 ####################################################
 
+####### Find tweets with no retweets ########
+
+####Find Tweets with no retweets ###
+#
+for i in tweets:
+    try:
+        if i['retweeted_status']:
+            tweets.remove(i)
+    except KeyError:
+        continue
+
+print("Antall tweets etter filtrering:", len(tweets))
+print()
+print("Tweeter uten retweets:")
+
+count = 0
+
+for tweet in tweets:
+    if tweet['retweet_count'] == 0:
+        count += 1
+        print("{}) Tweet fra {}:".format(count, tweet['user']['name']))
+        print("http://twitter.com/{}/status/{}".format(tweet['user']['screen_name'], tweet['id']))
+        print()
+
+########### Sort tweets by favorite count or retweets #########
+
 tweets = sort_list_by_value(tweets, 'favorite_count' #'retweet_count')
 
 for i in range(10):
