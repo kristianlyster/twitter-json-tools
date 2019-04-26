@@ -76,14 +76,14 @@ for tweet in tweets:
 #print()
 #print("Tweeter uten retweets:")
 
-count = 0
+#count = 0
 
-for tweet in tweets:
-    if tweet['retweet_count'] == 0:
-        count += 1
-        print("{}) Tweet fra {}:".format(count, tweet['user']['name']))
-        print("http://twitter.com/{}/status/{}".format(tweet['user']['screen_name'], tweet['id']))
-        print()
+#for tweet in tweets:
+    #if tweet['retweet_count'] == 0:
+        #count += 1
+        #print("{}) Tweet fra {}:".format(count, tweet['user']['name']))
+        #print("http://twitter.com/{}/status/{}".format(tweet['user']['screen_name'], tweet['id']))
+        #print()
 
 ########### Sort tweets by favorite count or retweets #########
 
