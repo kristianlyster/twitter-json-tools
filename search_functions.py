@@ -71,4 +71,4 @@ def get_sublist_containing_tweets_from_user(tweets, username):
 
 
 def sort_list_by_value(tweets, key, highest_first=True):
-    return sorted(tweets, key=lambda x: x[key], descending=highest_first)
+    return sorted(tweets, key=lambda x: x[key], reverse=highest_first)
