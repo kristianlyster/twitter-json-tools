@@ -73,6 +73,8 @@ def rearrange_tweet_data(tweet):
         mentions.append(mention['screen_name'])
     tweet['mentions'] = mentions
 
+    tweet['interaction_rate'] = (0.7 * tweet['retweet_count'] + 0.3 * tweet['favorite_count']) / tweet['user_followers']
+
     return tweet
 
 
