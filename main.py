@@ -54,7 +54,7 @@ for tweet in tweets:
 
 fields_to_keep = ['created_at', 'full_text', 'mentions',
                   'hashtags', 'id', 'user', 'favorite_count', 'retweet_count',
-                  'user_followers']
+                  'user_followers', 'interaction_rate']
 
 for tweet in tweets:
     tweet = remove_excess_data(tweet, fields_to_keep)
