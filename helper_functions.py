@@ -77,6 +77,8 @@ def rearrange_tweet_data(tweet):
 
     tweet['interaction_rate'] = (0.7 * tweet['retweet_count'] + 0.3 * tweet['favorite_count']) / tweet['user_followers']
 
+    tweet['language'] = tweet['lang']
+    
     return tweet
 
 
