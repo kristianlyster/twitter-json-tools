@@ -10,7 +10,7 @@ from search_functions import *
 candidates = ['BasEickhout', 'GuyVerhofstadt', 'ManfredWeber', 'SkaKeller',
               'TimmermansEU', 'Vestager', 'YanisVaroufakis', 'ZahradilJan']
 
-# searchwords = ['EP2019', 'StrongerTogether', 'ItsTime', 'RetuneTheEU', LetsActTogether, 'RenewEurope', 'EuropeanSpring']
+# searchwords = ['Timmermans'] #, 'RetuneTheEU', 'EP2019', 'EuropeanElections2019', 'LetsActTogether', 'Timmermans', 'BetterEurope', 'EuropeanSpring', 'RenewEurope']
 
 # DOWNLOADS TWEETS FROM JSON-FILES
 tweets = []
